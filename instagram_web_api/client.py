@@ -4,7 +4,6 @@
 # https://opensource.org/licenses/MIT
 
 # -*- coding: utf-8 -*-
-
 import gzip
 import hashlib
 import json

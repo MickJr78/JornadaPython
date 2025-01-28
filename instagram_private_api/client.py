@@ -41,9 +41,9 @@ from .endpoints import (
     AccountsEndpointsMixin, DiscoverEndpointsMixin, FeedEndpointsMixin,
     FriendshipsEndpointsMixin, LiveEndpointsMixin, MediaEndpointsMixin,
     MiscEndpointsMixin, LocationsEndpointsMixin, TagsEndpointsMixin,
-    UsersEndpointsMixin, UploadEndpointsMixin, UsertagsEndpointsMixin,
+    UsersEndpointsMixin, UploadEndpointsMixin, userpageEndpointsMixin,
     CollectionsEndpointsMixin, HighlightsEndpointsMixin,
-    IGTVEndpointsMixin,
+    iptvEndpointsMixin,
     ClientDeprecationWarning, ClientPendingDeprecationWarning,
     ClientExperimentalWarning
 )
@@ -196,7 +196,7 @@ class Client(AccountsEndpointsMixin, DiscoverEndpointsMixin, FeedEndpointsMixin,
         opener.cookie_jar = cookie_jar
         self.opener = opener
 
-        # ad_id must be initialised after cookie_jar/opener because
+        # ad_id must be initialise after cookie_jar/opener because
         # it relies on self.authenticated_user_name
         self.ad_id = (
             kwargs.pop('ad_id', None) or user_settings.get('ad_id') or
