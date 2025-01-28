@@ -15,7 +15,7 @@ class FriendshipsEndpointsMixin(object):
             query={'followinfo': 'True', 'version': '2'})
         if self.auto_patch:
             [ClientCompatPatch.list_user(user, drop_incompat_keys=self.drop_incompat_keys)
-             for user in res['users']]
+            for user in res['users']]
         return res
 
     def user_following(self, user_id, rank_token, **kwargs):

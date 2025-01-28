@@ -72,9 +72,9 @@ class ClientCompatPatch(object):
                 current = media
             if (abs(media['width'] - width) < abs(current['width'] - width) or
                     (media['width'] == current['width'] and not height and
-                     not media['height'] == current['width']) or
+                    not media['height'] == current['width']) or
                     (media['width'] == current['width'] and height and
-                     abs(media['height'] - height) < abs(current['height'] - height))):
+                    abs(media['height'] - height) < abs(current['height'] - height))):
                 current = media
 
         return current
@@ -269,8 +269,8 @@ class ClientCompatPatch(object):
         if 'location' not in media or not media['location']:
             media['location'] = None
         elif (media.get('location', {}).get('lat')
-              and media.get('location', {}).get('lng')
-              and media.get('location', {}).get('pk')):
+            and media.get('location', {}).get('lng')
+            and media.get('location', {}).get('pk')):
             media['location']['latitude'] = media['location']['lat']
             media['location']['longitude'] = media['location']['lng']
             media['location']['id'] = media['location']['pk']

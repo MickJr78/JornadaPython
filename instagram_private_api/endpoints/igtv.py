@@ -28,7 +28,7 @@ class IGTVEndpointsMixin(object):
 
         if self.auto_patch:
             [ClientCompatPatch.media(m, drop_incompat_keys=self.drop_incompat_keys)
-             for m in res.get('items', [])]
+            for m in res.get('items', [])]
 
         return res
 
@@ -38,9 +38,9 @@ class IGTVEndpointsMixin(object):
         if self.auto_patch:
             for c in res.get('channels', []):
                 [ClientCompatPatch.media(m, drop_incompat_keys=self.drop_incompat_keys)
-                 for m in c.get('items', [])]
+                for m in c.get('items', [])]
             [ClientCompatPatch.media(m, drop_incompat_keys=self.drop_incompat_keys)
-             for m in res.get('my_channel', {}).get('items', [])]
+            for m in res.get('my_channel', {}).get('items', [])]
         return res
 
     def search_igtv(self, text):
@@ -57,7 +57,7 @@ class IGTVEndpointsMixin(object):
         if self.auto_patch:
             for r in res.get('results', []):
                 [ClientCompatPatch.media(m, drop_incompat_keys=self.drop_incompat_keys)
-                 for m in r.get('channel', {}).get('items', [])]
+                for m in r.get('channel', {}).get('items', [])]
                 if r.get('user'):
                     ClientCompatPatch.user(r['user'], drop_incompat_keys=self.drop_incompat_keys)
         return res

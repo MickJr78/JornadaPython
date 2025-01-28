@@ -23,7 +23,7 @@ class MediaEndpointsMixin(object):
         res = self._call_api(endpoint)
         if self.auto_patch:
             [ClientCompatPatch.media(m, drop_incompat_keys=self.drop_incompat_keys)
-             for m in res.get('items', [])]
+            for m in res.get('items', [])]
         return res
 
     def medias_info(self, media_ids):
@@ -47,7 +47,7 @@ class MediaEndpointsMixin(object):
         res = self._call_api('media/infos/', query=params)
         if self.auto_patch:
             [ClientCompatPatch.media(m, drop_incompat_keys=self.drop_incompat_keys)
-             for m in res.get('items', [])]
+            for m in res.get('items', [])]
         return res
 
     def media_permalink(self, media_id):
@@ -80,9 +80,9 @@ class MediaEndpointsMixin(object):
 
         if self.auto_patch:
             [ClientCompatPatch.comment(c, drop_incompat_keys=self.drop_incompat_keys)
-             for c in res.get('comments', [])]
+            for c in res.get('comments', [])]
             [ClientCompatPatch.comment(c, drop_incompat_keys=self.drop_incompat_keys)
-             for c in res.get('preview_comments', [])]
+            for c in res.get('preview_comments', [])]
         return res
 
     def media_n_comments(self, media_id, n=150, reverse=False, **kwargs):
@@ -119,7 +119,7 @@ class MediaEndpointsMixin(object):
 
         if self.auto_patch:
             [ClientCompatPatch.comment(c, drop_incompat_keys=self.drop_incompat_keys)
-             for c in comments]
+            for c in comments]
 
         return sorted(comments, key=lambda k: k['created_at_utc'], reverse=reverse)
 
@@ -141,7 +141,7 @@ class MediaEndpointsMixin(object):
 
         if self.auto_patch:
             [ClientCompatPatch.comment(c, drop_incompat_keys=self.drop_incompat_keys)
-             for c in res.get('child_comments', [])]
+            for c in res.get('child_comments', [])]
             ClientCompatPatch.comment(res.get('parent_comment'))
         return res
 
@@ -164,7 +164,7 @@ class MediaEndpointsMixin(object):
         res = self._call_api(endpoint, query=query)
         if self.auto_patch:
             [ClientCompatPatch.comment(c, drop_incompat_keys=self.drop_incompat_keys)
-             for c in res.get('child_comments', [])]
+            for c in res.get('child_comments', [])]
             ClientCompatPatch.comment(res.get('parent_comment'))
         return res
 
@@ -222,26 +222,26 @@ class MediaEndpointsMixin(object):
             .. code-block:: javascript
 
                 {
-                  "comment": {
+                "comment": {
                     "status": "Active",
                     "media_id": 123456789,
                     "text": ":)",
                     "created_at": 1479453671.0,
                     "user": {
-                      "username": "x",
-                      "has_anonymous_profile_picture": false,
-                      "profile_pic_url": "http://scontent-sit4-1.cdninstagram.com/abc.jpg",
-                      "full_name": "x",
-                      "pk": 123456789,
-                      "is_verified": false,
-                      "is_private": false
+                    "username": "x",
+                    "has_anonymous_profile_picture": false,
+                    "profile_pic_url": "http://scontent-sit4-1.cdninstagram.com/abc.jpg",
+                    "full_name": "x",
+                    "pk": 123456789,
+                    "is_verified": false,
+                    "is_private": false
                     },
                     "content_type": "comment",
                     "created_at_utc": 1479482471,
                     "pk": 17865505612040669,
                     "type": 0
-                  },
-                  "status": "ok"
+                },
+                "status": "ok"
                 }
         """
 
@@ -320,7 +320,7 @@ class MediaEndpointsMixin(object):
         res = self._call_api(endpoint, query=kwargs)
         if self.auto_patch:
             [ClientCompatPatch.list_user(u, drop_incompat_keys=self.drop_incompat_keys)
-             for u in res.get('users', [])]
+            for u in res.get('users', [])]
         return res
 
     def media_likers_chrono(self, media_id):
@@ -335,7 +335,7 @@ class MediaEndpointsMixin(object):
         res = self._call_api('media/{media_id!s}/likers_chrono/'.format(**{'media_id': media_id}))
         if self.auto_patch:
             [ClientCompatPatch.list_user(u, drop_incompat_keys=self.drop_incompat_keys)
-             for u in res.get('users', [])]
+            for u in res.get('users', [])]
         return res
 
     def post_like(self, media_id, module_name='feed_timeline'):
@@ -447,7 +447,7 @@ class MediaEndpointsMixin(object):
         res = self._call_api(endpoint)
         if self.auto_patch:
             [ClientCompatPatch.list_user(u, drop_incompat_keys=self.drop_incompat_keys)
-             for u in res.get('users', [])]
+            for u in res.get('users', [])]
         return res
 
     def comment_unlike(self, comment_id):

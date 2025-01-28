@@ -19,7 +19,7 @@ class CollectionsEndpointsMixin(object):
         res = self._call_api(endpoint, query=kwargs)
         if self.auto_patch and res.get('items'):
             [ClientCompatPatch.media(m['media'], drop_incompat_keys=self.drop_incompat_keys)
-             for m in res.get('items', []) if m.get('media')]
+            for m in res.get('items', []) if m.get('media')]
         return res
 
     def create_collection(self, name, added_media_ids=None):

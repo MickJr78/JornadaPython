@@ -1,7 +1,7 @@
 import warnings
 
-from .common import ClientDeprecationWarning
 from ..compatpatch import ClientCompatPatch
+from .common import ClientDeprecationWarning
 
 
 class DiscoverEndpointsMixin(object):
@@ -20,7 +20,7 @@ class DiscoverEndpointsMixin(object):
         res = self._call_api('discover/explore/', query=query)
         if self.auto_patch:
             [ClientCompatPatch.media(item['media'], drop_incompat_keys=self.drop_incompat_keys)
-             if item.get('media') else item for item in res['items']]
+            if item.get('media') else item for item in res['items']]
         return res
 
     def discover_channels_home(self):       # pragma: no cover

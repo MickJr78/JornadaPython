@@ -17,8 +17,8 @@ class LocationsEndpointsMixin(object):
             .. code-block:: javascript
 
                 {
-                  "status": "ok",
-                  "location": {
+                "status": "ok",
+                "location": {
                     "external_source": "facebook_places",
                     "city": "",
                     "name": "Berlin Brandenburger Tor",
@@ -27,7 +27,7 @@ class LocationsEndpointsMixin(object):
                     "lat": 52.51588,
                     "pk": 229573811,
                     "lng": 13.37892
-                  }
+                }
                 }
         """
         endpoint = 'locations/{location_id!s}/info/'.format(**{'location_id': location_id})

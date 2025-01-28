@@ -5,38 +5,48 @@
 
 # -*- coding: utf-8 -*-
 
-import logging
+import gzip
 import hashlib
 import json
+import logging
+import random
 import re
-import gzip
-from io import BytesIO
+import string
 import time
 import warnings
 from functools import wraps
-import string
-import random
-from socket import timeout, error as SocketError
+from io import BytesIO
+from socket import error as SocketError
+from socket import timeout
 from ssl import SSLError
+
 from .compat import (
-    compat_urllib_request, compat_urllib_parse,
-    compat_urllib_parse_urlparse, compat_urllib_error,
-    compat_http_client, compat_cookiejar
+    compat_cookiejar,
+    compat_http_client,
+    compat_urllib_error,
+    compat_urllib_parse,
+    compat_urllib_parse_urlparse,
+    compat_urllib_request,
 )
 from .compatpatch import ClientCompatPatch
 from .errors import (
-    ClientError, ClientLoginError, ClientCookieExpiredError,
-    ClientConnectionError, ClientBadRequestError,
-    ClientForbiddenError, ClientThrottledError,
+    ClientBadRequestError,
+    ClientConnectionError,
+    ClientCookieExpiredError,
+    ClientError,
+    ClientForbiddenError,
+    ClientLoginError,
+    ClientThrottledError,
 )
+
 try:  # Python 3:
     # Not a no-op, we're adding this to the namespace so it can be imported.
     ConnectionError = ConnectionError       # pylint: disable=redefined-builtin
 except NameError:  # Python 2:
     class ConnectionError(Exception):
         pass
-from .http import ClientCookieJar, MultipartFormDataEncoder
 from .common import ClientDeprecationWarning
+from .http import ClientCookieJar, MultipartFormDataEncoder
 
 logger = logging.getLogger(__name__)
 warnings.simplefilter('always', ClientDeprecationWarning)
@@ -89,8 +99,8 @@ class Client(object):
         user_settings = kwargs.pop('settings', None) or {}
         self.user_agent = user_agent or user_settings.get('user_agent') or self.USER_AGENT
         self.mobile_user_agent = (kwargs.pop('mobile_user_agent', None)
-                                  or user_settings.get('mobile_user_agent')
-                                  or self.MOBILE_USER_AGENT)
+                                or user_settings.get('mobile_user_agent')
+                                or self.MOBILE_USER_AGENT)
 
         self.init_csrftoken = None
         self.rhx_gis = kwargs.pop('rhx_gis', None) or user_settings.get('rhx_gis')
@@ -212,7 +222,7 @@ class Client(object):
         return m.hexdigest()
 
     def _make_request(self, url, params=None, headers=None, query=None,
-                      return_response=False, get_method=None):
+                    return_response=False, get_method=None):
         """
         Calls the web API.
 
@@ -406,9 +416,9 @@ class Client(object):
 
         params = {
             'q': 'ig_user({user_id}) {{id, username, full_name, profile_pic_url, '
-                 'biography, external_url, is_private, is_verified, '
-                 'media {{count}}, followed_by {{count}}, '
-                 'follows {{count}} }}'.format(**{'user_id': user_id}),
+                'biography, external_url, is_private, is_verified, '
+                'media {{count}}, followed_by {{count}}, '
+                'follows {{count}} }}'.format(**{'user_id': user_id}),
         }
         user = self._make_request(self.API_URL, params=params)
 
@@ -485,8 +495,8 @@ class Client(object):
 
         if self.auto_patch:
             [ClientCompatPatch.media(media['node'], drop_incompat_keys=self.drop_incompat_keys)
-             for media in info.get('data', {}).get('user', {}).get(
-                 'edge_owner_to_timeline_media', {}).get('edges', [])]
+            for media in info.get('data', {}).get('user', {}).get(
+                'edge_owner_to_timeline_media', {}).get('edges', [])]
 
         if kwargs.pop('extract', True):
             return info.get('data', {}).get('user', {}).get(
@@ -506,12 +516,12 @@ class Client(object):
 
         params = {
             'q': 'ig_shortcode({media_code}) {{ caption, code, comments {{count}}, date, '
-                 'dimensions {{height, width}}, comments_disabled, '
-                 'usertags {{nodes {{x, y, user {{id, username, full_name, profile_pic_url}} }} }}, '
-                 'location {{id, name, lat, lng}}, display_src, id, is_video, is_ad, '
-                 'likes {{count}}, owner {{id, username, full_name, profile_pic_url, '
-                 'is_private, is_verified}}, __typename, '
-                 'thumbnail_src, video_views, video_url }}'.format(
+                'dimensions {{height, width}}, comments_disabled, '
+                'usertags {{nodes {{x, y, user {{id, username, full_name, profile_pic_url}} }} }}, '
+                'location {{id, name, lat, lng}}, display_src, id, is_video, is_ad, '
+                'likes {{count}}, owner {{id, username, full_name, profile_pic_url, '
+                'is_private, is_verified}}, __typename, '
+                'thumbnail_src, video_views, video_url }}'.format(
                      **{'media_code': short_code})
         }
         media = self._make_request(self.API_URL, params=params)
@@ -584,8 +594,8 @@ class Client(object):
 
         if self.auto_patch:
             [ClientCompatPatch.comment(c['node'], drop_incompat_keys=self.drop_incompat_keys)
-             for c in info.get('data', {}).get('shortcode_media', {}).get(
-                 'edge_media_to_comment', {}).get('edges', [])]
+            for c in info.get('data', {}).get('shortcode_media', {}).get(
+                'edge_media_to_comment', {}).get('edges', [])]
 
         if kwargs.pop('extract', True):
             return [c['node'] for c in info.get('data', {}).get('shortcode_media', {}).get(
@@ -668,8 +678,8 @@ class Client(object):
         info = self._make_request(self.GRAPHQL_API_URL, query=query)
         if self.auto_patch:
             [ClientCompatPatch.list_user(u['node'], drop_incompat_keys=self.drop_incompat_keys)
-             for u in info.get('data', {}).get('user', {}).get(
-                 'edge_follow', {}).get('edges', [])]
+            for u in info.get('data', {}).get('user', {}).get(
+                'edge_follow', {}).get('edges', [])]
 
         if kwargs.pop('extract', True):
             return [u['node'] for u in info.get('data', {}).get('user', {}).get(
@@ -708,8 +718,8 @@ class Client(object):
         info = self._make_request(self.GRAPHQL_API_URL, query=query)
         if self.auto_patch:
             [ClientCompatPatch.list_user(u['node'], drop_incompat_keys=self.drop_incompat_keys)
-             for u in info.get('data', {}).get('user', {}).get(
-                 'edge_followed_by', {}).get('edges', [])]
+            for u in info.get('data', {}).get('user', {}).get(
+                'edge_followed_by', {}).get('edges', [])]
 
         if kwargs.pop('extract', True):
             return [u['node'] for u in info.get('data', {}).get('user', {}).get(
@@ -1134,8 +1144,8 @@ class Client(object):
 
         if self.auto_patch:
             [ClientCompatPatch.media(media['node'], drop_incompat_keys=self.drop_incompat_keys)
-             for media in info.get('data', {}).get('user', {}).get(
-                 'edge_user_to_photos_of_you', {}).get('edges', [])]
+            for media in info.get('data', {}).get('user', {}).get(
+                'edge_user_to_photos_of_you', {}).get('edges', [])]
 
         return info
 

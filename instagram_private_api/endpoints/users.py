@@ -48,11 +48,11 @@ class UsersEndpointsMixin(object):
         if self.auto_patch:
             ClientCompatPatch.user(res['user_detail']['user'], drop_incompat_keys=self.drop_incompat_keys)
             [ClientCompatPatch.media(m, drop_incompat_keys=self.drop_incompat_keys)
-             for m in res.get('feed', {}).get('items', [])]
+            for m in res.get('feed', {}).get('items', [])]
             [ClientCompatPatch.media(m, drop_incompat_keys=self.drop_incompat_keys)
-             for m in res.get('reel_feed', {}).get('items', [])]
+            for m in res.get('reel_feed', {}).get('items', [])]
             [ClientCompatPatch.media(m, drop_incompat_keys=self.drop_incompat_keys)
-             for m in res.get('user_story', {}).get('reel', {}).get('items', [])]
+            for m in res.get('user_story', {}).get('reel', {}).get('items', [])]
         return res
 
     def user_map(self, user_id):    # pragma: no cover
@@ -85,7 +85,7 @@ class UsersEndpointsMixin(object):
         res = self._call_api('users/search/', query=query_params)
         if self.auto_patch:
             [ClientCompatPatch.list_user(u, drop_incompat_keys=self.drop_incompat_keys)
-             for u in res.get('users', [])]
+            for u in res.get('users', [])]
         return res
 
     def check_username(self, username):
@@ -97,11 +97,11 @@ class UsersEndpointsMixin(object):
             .. code-block:: javascript
 
                 {
-                  "status": "ok",
-                  "available": false,
-                  "username": "xxx",
-                  "error_type": "username_is_taken",
-                  "error": "The username xxx is not available."
+                "status": "ok",
+                "available": false,
+                "username": "xxx",
+                "error_type": "username_is_taken",
+                "error": "The username xxx is not available."
                 }
         """
         params = {'username': username}
@@ -123,7 +123,7 @@ class UsersEndpointsMixin(object):
         res = self._call_api('users/reel_settings/')
         if self.auto_patch and res.get('blocked_reels', {}).get('users'):
             [ClientCompatPatch.list_user(u, drop_incompat_keys=self.drop_incompat_keys)
-             for u in res.get('blocked_reels', {}).get('users', [])]
+            for u in res.get('blocked_reels', {}).get('users', [])]
         return res
 
     def set_reel_settings(

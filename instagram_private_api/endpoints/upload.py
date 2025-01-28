@@ -146,7 +146,7 @@ class UploadEndpointsMixin(object):
         return min_ratio <= this_ratio <= max_ratio
 
     def configure(self, upload_id, size, caption='', location=None,
-                  disable_comments=False, is_sidecar=False):
+                disable_comments=False, is_sidecar=False):
         """
         Finalises a photo upload. This should not be called directly.
         Use :meth:`post_photo` instead.
@@ -155,7 +155,7 @@ class UploadEndpointsMixin(object):
         :param size: tuple of (width, height)
         :param caption:
         :param location: a dict of venue/location information,
-                         from :meth:`location_search` or :meth:`location_fb_search`
+                        from :meth:`location_search` or :meth:`location_fb_search`
         :param disable_comments:
         :param is_sidecar: bool flag for album upload
         :return:

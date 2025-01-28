@@ -56,11 +56,11 @@ warnings.simplefilter('default', ClientExperimentalWarning)
 
 
 class Client(AccountsEndpointsMixin, DiscoverEndpointsMixin, FeedEndpointsMixin,
-             FriendshipsEndpointsMixin, LiveEndpointsMixin, MediaEndpointsMixin,
-             MiscEndpointsMixin, LocationsEndpointsMixin, TagsEndpointsMixin,
-             UsersEndpointsMixin, UploadEndpointsMixin, UsertagsEndpointsMixin,
-             CollectionsEndpointsMixin, HighlightsEndpointsMixin,
-             IGTVEndpointsMixin, object):
+            FriendshipsEndpointsMixin, LiveEndpointsMixin, MediaEndpointsMixin,
+            MiscEndpointsMixin, LocationsEndpointsMixin, TagsEndpointsMixin,
+            UsersEndpointsMixin, UploadEndpointsMixin, UsertagsEndpointsMixin,
+            CollectionsEndpointsMixin, HighlightsEndpointsMixin,
+            IGTVEndpointsMixin, object):
     """Main API client class for the private app api."""
 
     API_URL = 'https://i.instagram.com/api/{version!s}/'

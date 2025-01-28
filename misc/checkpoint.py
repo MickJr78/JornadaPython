@@ -1,14 +1,16 @@
-import re
 import gzip
+import re
 from io import BytesIO
+
 try:
     # python 2.x
-    from urllib2 import urlopen, Request
-    from urllib import urlencode, unquote_plus
+    from urllib import unquote_plus, urlencode
+
+    from urllib2 import Request, urlopen
 except ImportError:
     # python 3.x
-    from urllib.request import urlopen, Request
-    from urllib.parse import urlencode, unquote_plus
+    from urllib.parse import unquote_plus, urlencode
+    from urllib.request import Request, urlopen
 
 import sys
 
@@ -17,8 +19,8 @@ class Checkpoint:
     """OBSOLETE. No longer working or supported."""
 
     USER_AGENT = 'Mozilla/5.0 (iPhone; CPU iPhone OS 9_3_3 like Mac OS X) ' \
-                 'AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13G34 ' \
-                 'Instagram 9.2.0 (iPhone7,2; iPhone OS 9_3_3; en_US; en-US; scale=2.00; 750x1334)'
+                'AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13G34 ' \
+                'Instagram 9.2.0 (iPhone7,2; iPhone OS 9_3_3; en_US; en-US; scale=2.00; 750x1334)'
 
     def __init__(self, user_id, **kwargs):
         self.user_id = user_id

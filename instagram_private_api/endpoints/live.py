@@ -107,19 +107,19 @@ class LiveEndpointsMixin(object):
             .. code-block:: javascript
 
                 {
-                  "status": "ok",
-                  "broadcast_status": "active",
-                  "media_id": "12345678934374208_123456789",
-                  "cover_frame_url": "https://scontent-hkg3-1.cdninstagram.com/something.jpg",
-                  "broadcast_owner": {
+                "status": "ok",
+                "broadcast_status": "active",
+                "media_id": "12345678934374208_123456789",
+                "cover_frame_url": "https://scontent-hkg3-1.cdninstagram.com/something.jpg",
+                "broadcast_owner": {
                     "username": "abc",
                     "friendship_status": {
-                      "incoming_request": false,
-                      "followed_by": false,
-                      "outgoing_request": false,
-                      "following": false,
-                      "blocking": false,
-                      "is_private": false
+                    "incoming_request": false,
+                    "followed_by": false,
+                    "outgoing_request": false,
+                    "following": false,
+                    "blocking": false,
+                    "is_private": false
                     },
                     "profile_pic_url": "http://scontent-hkg3-1.cdninstagram.com/somethingelse.jpg",
                     "profile_pic_id": "1234567850644676241_123456789",
@@ -127,14 +127,14 @@ class LiveEndpointsMixin(object):
                     "pk": 123456789,
                     "is_verified": true,
                     "is_private": false
-                  },
-                  "dash_abr_playback_url": null,
-                  "broadcast_message": "",
-                  "published_time": 1485312576,
-                  "dash_playback_url": "https://scontent-hkg3-1.cdninstagram.com/hvideo-ash1/v/dash-hd/spmething.mpd",
-                  "rtmp_playback_url": "rtmp://svelivestream007.16.ash1.facebook.com:16000/live-hd/something",
-                  "id": 178591123456789,
-                  "viewer_count": 9000.0
+                },
+                "dash_abr_playback_url": null,
+                "broadcast_message": "",
+                "published_time": 1485312576,
+                "dash_playback_url": "https://scontent-hkg3-1.cdninstagram.com/hvideo-ash1/v/dash-hd/spmething.mpd",
+                "rtmp_playback_url": "rtmp://svelivestream007.16.ash1.facebook.com:16000/live-hd/something",
+                "id": 178591123456789,
+                "viewer_count": 9000.0
                 }
         """
         broadcast_id = str(broadcast_id)
@@ -171,7 +171,7 @@ class LiveEndpointsMixin(object):
         res = self._call_api(endpoint, query=query)
         if self.auto_patch and res.get('comments'):
             [ClientCompatPatch.comment(c['comment']) for c in res.get('comments', [])
-             if c.get('comment')]
+            if c.get('comment')]
         return res
 
     def replay_broadcast_likes(
